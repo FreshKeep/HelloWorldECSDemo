@@ -14,6 +14,12 @@
         "level": "verbose"
       }
     },
+		"test": {
+      "console": {
+        "level": "verbose",
+        "colorize": true
+      }
+    },
     "http": {
       "console": {
         "level": "warn",
