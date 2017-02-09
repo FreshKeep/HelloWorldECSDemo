@@ -10,6 +10,5 @@ COPY . /usr/src/app
 
 RUN npm install mocha --silent
 RUN npm install mocha-co --silent
-RUN mocha tests
 
 CMD [ "npm", "start" ]
