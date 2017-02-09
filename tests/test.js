@@ -24,7 +24,6 @@ describe('Hello World Test', function() {
         var reply = yield request('http://localhost:3000');
         testLogger.verbose(reply);
         expect(reply).to.eql(global.conf.message);
-        expect(true).to.be.false;
     });
 
     it('Run app perform GET, full reply', function*() {
