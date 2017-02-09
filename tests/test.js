@@ -12,7 +12,7 @@ winstonConf.fromFileSync(path.join(__dirname, '../config/winston-config.json'), 
     }
 });
 
-var testLogger = winston.loggers.get('application');
+var testLogger = winston.loggers.get('test');
 
 var chai = require('chai');
 var expect = chai.expect; // we are using the "expect" style of Chai
