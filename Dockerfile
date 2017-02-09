@@ -8,4 +8,7 @@ COPY package.json /usr/src/app/
 RUN npm install --silent
 COPY . /usr/src/app
 
+RUN npm install mocha -g --silent
+RUN mocha tests
+
 CMD [ "npm", "start" ]
