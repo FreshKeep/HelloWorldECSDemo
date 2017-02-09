@@ -9,6 +9,7 @@ RUN npm install --silent
 COPY . /usr/src/app
 
 WORKDIR /usr/src/app
+RUN mkdir -p /usr/src/app/logs
 RUN npm install mocha -g --silent
 RUN npm install mocha-co -g --silent
 RUN mocha tests
