@@ -31,11 +31,24 @@ steps:
         set:
           - '${{BuildingDockerImage.imageId}}':
               - CF_QUALITY: false
-  PushingToDockerRegistry:
-    title: Pushing to Docker Registry
+  PushingBranchToDockerRegistry:
+    title: Pushing branch image to Docker Registry
     type: push
     candidate: '${{BuildingDockerImage}}'
     tag: '${{CF_BRANCH}}'
+    when:
+      branch:
+        ignore:
+          - master
+  PushingMasterToDockerRegistry:
+    title: Pushing master image to Docker Registry
+    type: push
+    candidate: '${{BuildingDockerImage}}'
+    tag: latest
+    when:
+      branch:
+        only:
+          - master
   DeployToEcs:
     title: Deploying to ECS
     image: codefresh/cf-deploy-ecs
