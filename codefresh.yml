@@ -40,8 +40,17 @@ steps:
       branch:
         ignore:
           - master
-  PushingMasterToDockerRegistry:
-    title: Pushing master image to Docker Registry
+  PushingVersionedMasterToDockerRegistry:
+    title: Pushing master image to Docker Registry with commit hash as tag
+    type: push
+    candidate: '${{BuildingDockerImage}}'
+    tag: '${{CF_SHORT_REVISION}}'
+    when:
+      branch:
+        only:
+          - master
+  PushingLatestMasterToDockerRegistry:
+    title: Pushing master image to Docker Registry with latest tag
     type: push
     candidate: '${{BuildingDockerImage}}'
     tag: latest
