@@ -46,7 +46,6 @@ steps:
       - AWS_SECRET_ACCESS_KEY=${{AWS_SECRET_ACCESS_KEY}}
 
     when:
-      name: "Execute for 'master' branch"
       branch:
         only:
           - master
