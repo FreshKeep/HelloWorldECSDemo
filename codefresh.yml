@@ -44,7 +44,7 @@ steps:
     environment:
       - AWS_ACCESS_KEY_ID=${{AWS_ACCESS_KEY_ID}}
       - AWS_SECRET_ACCESS_KEY=${{AWS_SECRET_ACCESS_KEY}}
-      
+
     when:
-      - name: "Execute for 'master' branch"
-        condition: "'${{CF_BRANCH}}' == 'master'"
+      name: "Execute for 'master' branch"
+      condition: "'${{CF_BRANCH}}' == 'master'"
