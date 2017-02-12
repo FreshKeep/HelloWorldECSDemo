@@ -7,5 +7,6 @@ WORKDIR /usr/src/app
 COPY package.json /usr/src/app/
 RUN npm install --silent
 COPY . /usr/src/app
+RUN mkdir -p /usr/src/app/logs
 
 CMD [ "npm", "start" ]
