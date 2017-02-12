@@ -1,0 +1,50 @@
+version: '1.0'
+steps:
+  BuildingDockerImage:
+    title: Building Docker Image
+    type: build
+    image_name: freshkeep/helloworldecsdemo
+    working_directory: ./
+    dockerfile: Dockerfile
+  RunningUnitTests:
+    title: Running Unit Tests
+    image: '${{BuildingDockerImage}}'
+    working_directory: IMAGE_WORK_DIR
+    entry_point:
+      - /bin/sh
+      - /codefresh/volume/cf-generated/unit_test_script
+    create_file:
+      path: /codefresh/volume/cf-generated
+      name: unit_test_script
+      content: |-
+        mkdir logs
+        npm install mocha -g --silent
+        npm install mocha-co -g --silent
+        mocha tests
+    on_success:
+      metadata:
+        set:
+          - '${{BuildingDockerImage.imageId}}':
+              - CF_QUALITY: true
+    on_fail:
+      metadata:
+        set:
+          - '${{BuildingDockerImage.imageId}}':
+              - CF_QUALITY: false
+  PushingToDockerRegistry:
+    title: Pushing to Docker Registry
+    type: push
+    candidate: '${{BuildingDockerImage}}'
+    tag: '${{CF_BRANCH}}'
+  DeployToEcs:
+    title: Deploying to ECS
+    image: codefresh/cf-deploy-ecs
+    commands:
+      - cfecs-update us-east-1 cluster-fuck-2 HelloWorldService2
+    environment:
+      - AWS_ACCESS_KEY_ID=${{AWS_ACCESS_KEY_ID}}
+      - AWS_SECRET_ACCESS_KEY=${{AWS_SECRET_ACCESS_KEY}}
+
+    when:
+      - name: "Execute for 'master' branch"
+        condition: "'${{CF_BRANCH}}' == 'master'"
