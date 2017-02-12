@@ -3,6 +3,7 @@ var path = require('path');
 var winstonConf = require('winston-config');
 var winston = require('winston');
 var co = require('co');
+var fs = require('fs');
 global.conf = require('./config/appsettings');
 
 winstonConf.fromFileSync(path.join(__dirname, './config/winston-config.json'), function(error) {
@@ -29,6 +30,9 @@ class App {
 }
 
 co(function*() {
+        if (!fs.existsSync(global.conf.logFolder)) {
+            fs.mkdirSync(global.conf.logFolder);
+        }
         // eslint-disable-next-line
         var app = new App();
         // eslint-disable-next-line
