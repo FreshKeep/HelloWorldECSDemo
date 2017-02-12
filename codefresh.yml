@@ -47,4 +47,6 @@ steps:
 
     when:
       name: "Execute for 'master' branch"
-      condition: "'${{CF_BRANCH}}' == 'master'"
+      branch:
+        only:
+          - master
