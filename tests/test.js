@@ -16,7 +16,7 @@ var testLogger = winston.loggers.get('test');
 
 var chai = require('chai');
 var expect = chai.expect; // we are using the "expect" style of Chai
-var app = require('../app.js');
+var app = require('../server.js');
 var request = require('request-promise');
 
 describe('Hello World Test', function() {
