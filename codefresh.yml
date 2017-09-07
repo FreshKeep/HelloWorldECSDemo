@@ -58,16 +58,3 @@ steps:
       branch:
         only:
           - master
-  DeployToEcs:
-    title: Deploying to ECS
-    image: codefresh/cf-deploy-ecs
-    commands:
-      - cfecs-update us-east-1 cluster-fuck-2 HelloWorldService2 -i freshkeep/helloworldecsdemo -t '${{CF_SHORT_REVISION}}'
-    environment:
-      - AWS_ACCESS_KEY_ID=${{AWS_ACCESS_KEY_ID}}
-      - AWS_SECRET_ACCESS_KEY=${{AWS_SECRET_ACCESS_KEY}}
-
-    when:
-      branch:
-        only:
-          - master
